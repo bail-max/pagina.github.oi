@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bachillerato en Computación Con Orientación Científica - Valle del Sol 2025</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-purple: #9333ea;
+            --secondary-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            --accent-orange: #f97316;
+            --dark-bg: #0f0f23;
+            --darker-bg: #080817;
+            --text-light: #f8fafc;
+            --text-gray: #cbd5e1;
+            --glow-purple: rgba(147, 51, 234, 0.6);
+            --glow-cyan: rgba(6, 182, 212, 0.6);
+            --glow-pink: rgba(236, 72, 153, 0.6);
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fondo dinámico con ondas */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: 
+                radial-gradient(circle at 20% 80%, var(--glow-purple) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--glow-cyan) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, var(--glow-pink) 0%, transparent 50%),
+                linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            z-index: -2;
+            animation: backgroundFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            33% { transform: scale(1.1) rotate(1deg); }
+            66% { transform: scale(1.05) rotate(-1deg); }
+        }
+
+        /* Partículas animadas */
+        .particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, var(--primary-purple), var(--secondary-cyan));
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: particleFloat 15s infinite ease-in-out;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0.1;
+            }
+            33% { 
+                transform: translateY(-100px) translateX(100px) rotate(120deg);
+                opacity: 0.3;
+            }
+            66% { 
+                transform: translateY(-50px) translateX(-80px) rotate(240deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* Header moderno con glassmorphism */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(15, 15, 35, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 50px;
+            padding: 15px 25px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar:hover {
+            transform: translateX(-50%) translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(147, 51, 234, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-cyan), var(--accent-pink));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 20px var(--glow-purple));
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--text-light);
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-cyan));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(147, 51, 234, 0.4);
+        }
+
+        .nav-link.active {
+            color: var(--text-light);
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-orange));
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.5);
+        }
+
+        /* Imagen del colegio renovada */
+        .college-image {
+            position: fixed;
+            top: 120px;
+            right: 30px;
+            width: 280px;
+            height: auto;
+            border-radius: 25px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 30px var(--glow-purple);
+            border: 2px solid rgba(147, 51, 234, 0.5);
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: collegeFloat 8s ease-in-out infinite;
+        }
+
+        .college-image:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.5),
+                0 0 50px var(--glow-cyan);
+        }
+
+        @keyframes collegeFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Contenido principal */
+        .main-content {
+            margin-top: 120px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .page {
+            display: none;
+            animation: pageSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes pageSlideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero section espectacular */
+        .hero {
+            text-align: center;
+            padding: 80px 0 120px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-cyan), var(--accent-pink), var(--accent-orange));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: heroGradient 6s ease infinite, heroFloat 4s ease-in-out infinite;
+            text-shadow: 0 0 50px var(--glow-purple);
+        }
+
+        @keyframes heroGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-gray);
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        /* Botón CTA futurista */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 35px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-light);
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-orange));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 35px rgba(236, 72, 153, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(236, 72, 153, 0.6);
+        }
+
+        /* Grid de tarjetas moderno */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            padding: 60px 0;
+        }
+
+        .card {
+            background: rgba(15, 15, 35, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 25px;
+            padding: 35px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--glow-purple), var(--glow-cyan));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .card:hover::before {
+            opacity: 0.1;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--secondary-cyan);
+            box-shadow: 0 25px 50px rgba(6, 182, 212, 0.3);
+        }
+
+        .card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-cyan);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Sección de materias renovada */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 60px 0;
+        }
+
+        .subject-card {
+            background: rgba(15, 15, 35, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--glow-cyan), transparent);
+            opacity: 0;
+            transition: all 0.6s ease;
+            animation: subjectSpin 8s linear infinite;
+        }
+
+        .subject-card:hover::after {
+            opacity: 0.1;
+        }
+
+        @keyframes subjectSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .subject-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--accent-pink);
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.4);
+        }
+
+        .subject-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: iconBounce 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px var(--glow-cyan));
+        }
+
+        .subject-card:hover .subject-icon {
+            animation: iconSpin 0.8s ease, iconBounce 3s ease-in-out infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes iconSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .subject-card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            color: var(--accent-pink);
+            margin-bottom: 15px;
+        }
+
+        .subject-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Sección de autores simplificada y creativa */
+        .authors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 60px 0;
+        }
+
+        .author-card {
+            background: rgba(15, 15, 35, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .author-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-purple), var(--secondary-cyan), var(--accent-pink), var(--accent-orange));
+            background-size: 300% 300%;
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            animation: authorBorder 4s ease infinite;
+            transition: opacity 0.3s ease;
+        }
+
+        .author-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes authorBorder {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .author-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .author-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(147, 51, 234, 0.5);
+            animation: avatarPulse 3s ease-in-out infinite;
+        }
+
+        .author-card:hover .author-avatar {
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: 0 15px 35px var(--glow-purple);
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { box-shadow: 0 10px 25px rgba(147, 51, 234, 0.5); }
+            50% { box-shadow: 0 15px 35px rgba(6, 182, 212, 0.7); }
+        }
+
+        .author-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .author-role {
+            color: var(--secondary-cyan);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* Formulario de contacto futurista */
+        .contact-form {
+            background: rgba(15, 15, 35, 0.8);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--glow-purple), transparent);
+            animation: formSpin 12s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes formSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--secondary-cyan);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 15px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-gray);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Efectos de scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Efectos de carga */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(147, 51, 234, 0.3);
+            border-top: 3px solid var(--primary-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .navbar {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                transform: none;
+                border-radius: 25px;
+                padding: 10px 15px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+            
+            .nav-link {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .college-image {
+                width: 220px;
+                top: 90px;
+                right: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .main-content {
+                margin-top: 160px;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .subjects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            
+            .authors-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+            
+            .contact-form {
+                padding: 30px;
+                margin: 0 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .college-image {
+                width: 180px;
+                top: 80px;
+            }
+            
+            .subjects-grid,
+            .authors-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        /* Efectos adicionales */
+        .glow-text {
+            text-shadow: 0 0 20px currentColor;
+        }
+
+        .hover-glow:hover {
+            filter: drop-shadow(0 0 15px currentColor);
+        }
+
+        /* Animaciones personalizadas */
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Iniciando experiencia futurista...</div>
+    </div>
+
+    <!-- Partículas de fondo -->
+    <div class="particles-bg" id="particlesBg"></div>
+
+    <!-- Header/Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo hover-glow" onclick="createSparkles()">⚡ VDS 2025</div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" onclick="showPage('inicio', event)">
+                        🏠 <span>Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('carrera', event)">
+                        🎯 <span>Carrera</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('materias', event)">
+                        📚 <span>Materias</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('oportunidades', event)">
+                        🚀 <span>Futuro</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('autores', event)">
+                        👥 <span>Equipo</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('contacto', event)">
+                        📡 <span>Contacto</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Página de Inicio -->
+            <div id="inicio" class="page active">
+                <div class="hero">
+                    <h1 class="reveal glow-text">Bachillerato en Computación Con Orientación Científica</h1>
+                    <p class="reveal">🌟 Construyendo el futuro digital de Guatemala - Valle del Sol 2025 🌟</p>
+                    <button class="cta-button reveal" onclick="showPage('carrera')">
+                        ✨ <span>Descubre el Futuro</span>
+                    </button>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card reveal">
+                        <h3>🚀 Innovación Extrema</h3>
+                        <p>Sumérgete en el mundo de la programación avanzada, inteligencia artificial y desarrollo de software de próxima generación. Conviértete en un arquitecto del futuro digital.</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>🧬 Ciencia Aplicada</h3>
+                        <p>Fusiona la computación con el método científico, estadística avanzada y análisis de big data para crear soluciones que impacten al mundo real.</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>🌟 Destino Extraordinario</h3>
+                        <p>Prepárate para carreras en IA, ciencia de datos, desarrollo de videojuegos, ciberseguridad y tecnologías emergentes que definirán el mañana.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página de La Carrera -->
+            <div id="carrera" class="page">
+                <div class="hero">
+                    <h1 class="slide-in-left glow-text">🎯 La Carrera del Futuro</h1>
+                    <p class="slide-in-right">Formación integral que combina tecnología y ciencias de vanguardia</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card reveal">
+                        <h3>📚 Formación Revolucionaria</h3>
+                        <p>El Bachillerato en Computación con Orientación Científica es un programa educativo de élite que fusiona conocimientos de informática avanzada, programación, matemáticas aplicadas y ciencias naturales. Diseñado para formar la próxima generación de innovadores tecnológicos.</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>🎯 Objetivos de Impacto</h3>
+                        <p>• Dominar lenguajes de programación modernos y frameworks<br>
+                        • Aplicar metodología científica en proyectos tecnológicos<br>
+                        • Desarrollar pensamiento computacional y analítico<br>
+                        • Prepararse para carreras STEM de alta demanda<br>
+                        • Crear soluciones innovadoras para problemas globales</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>💼 Perfil del Egresado Elite</h3>
+                        <p>Serás un profesional capaz de diseñar sistemas complejos, analizar datos masivos, crear algoritmos de IA, liderar proyectos multidisciplinarios, emprender con tecnología y acceder a las mejores universidades tecnológicas del mundo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página de Materias -->
+            <div id="materias" class="page">
+                <div class="hero">
+                    <h1 class="glow-text">📖 Pensum de la Carrera</h1>
+                    <p>Materias diseñadas para dominar la tecnología del mañana</p>
+                </div>
+                
+                <h2 style="text-align: center; margin: 50px 0; font-family: 'Orbitron', monospace; font-size: 2.5rem; color: var(--secondary-cyan); text-shadow: 0 0 30px var(--glow-cyan);">✨ Plan de Estudios Futurista ✨</h2>
+                
+                <div class="subjects-grid">
+                    <div class="subject-card reveal">
+                        <span class="subject-icon">💻</span>
+                        <h3>Programación Avanzada</h3>
+                        <p>Python, Java, C++, JavaScript, React, Node.js</p>
+                    </div>
+                    <div class="subject-card reveal">
+                        <span class="subject-icon">🤖</span>
+                        <h3>Inteligencia Artificial</h3>
+                        <p>Machine Learning, Deep Learning, Redes Neuronales</p>
+                    </div>
+                    <div class="subject-card reveal">
+                        <span class="subject-icon">🔢</span>
+                        <h3>Matemáticas Aplicadas</h3>
+                        <p>Álgebra Lineal, Cálculo, Estadística, Algoritmos</p>
+                    </div>
+                    <div class="subject-card reveal">
+                        <span class="subject-icon">🧪</span>
+                        <h3>Ciencias Computacionales</h3>
+                        <p>Física Digital, Química Computacional, Bioinformática</p>
+                    </div>
+                    <div class="subject-card reveal">
+                        <span class="subject-icon">📊</span>
+                        <h3>Ciencia de Datos</h3>
+                        <p>Big Data, Analytics, Visualización, Business Intelligence</p>
+                    </div>
+                    <div class="subject-card reveal">
+                        <span class="subject-icon">🔒</span>
+                        <h3>Ciberseguridad</h3>
+                        <p>Ethical Hacking, Criptografía, Seguridad de Redes</p>
+                    </div>
+                    <div class="subject-card reveal">
+                        <span class="subject-icon">📱</span>
+                        <h3>Desarrollo Móvil</h3>
+                        <p>Apps iOS/Android, Flutter, React Native</p>
+                    </div>
+                    <div class="subject-card reveal">
+                        <span class="subject-icon">🎮</span>
+                        <h3>Game Development</h3>
+                        <p>Unity, Unreal Engine, VR/AR, Game Design</p>
+                    </div>
+                    <div class="subject-card reveal">
+                        <span class="subject-icon">🔬</span>
+                        <h3>Metodología Científica</h3>
+                        <p>Investigación, Experimentación, Innovación Tecnológica</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página de Oportunidades -->
+            <div id="oportunidades" class="page">
+                <div class="hero">
+                    <h1 class="glow-text">🌟 Tu Destino Extraordinario</h1>
+                    <p>Descubre las infinitas posibilidades que te esperan en el mundo tecnológico</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card reveal">
+                        <h3>🎓 Universidades de Elite</h3>
+                        <p><strong>Accede a las Mejores Instituciones:</strong><br>
+                        • MIT - Massachusetts Institute of Technology 🏆<br>
+                        • Stanford University - Silicon Valley 🌟<br>
+                        • Universidad de San Carlos - Ingeniería 🇬🇹<br>
+                        • Universidad Rafael Landívar - Sistemas 💼<br>
+                        • Universidad del Valle - Computación 🚀<br>
+                        • Carnegie Mellon - Computer Science 🧠</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>💼 Carreras del Futuro</h3>
+                        <p><strong>Profesiones de Alta Demanda:</strong><br>
+                        • AI Engineer - Ingeniero de IA 🤖<br>
+                        • Data Scientist - Científico de Datos 📊<br>
+                        • Cybersecurity Specialist - Experto en Seguridad 🛡️<br>
+                        • Game Developer - Desarrollador de Videojuegos 🎮<br>
+                        • Full-Stack Developer - Desarrollador Completo 💻<br>
+                        • Blockchain Developer - Experto en Criptomonedas ⛓️</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>🚀 Emprendimiento Tech</h3>
+                        <p><strong>Crea tu Propia Startup:</strong><br>
+                        • Fintech - Tecnología Financiera 💰<br>
+                        • EdTech - Educación Digital 📚<br>
+                        • HealthTech - Salud Digital 🏥<br>
+                        • GameTech - Industria de Videojuegos 🕹️<br>
+                        • GreenTech - Tecnología Sostenible 🌱<br>
+                        • SpaceTech - Tecnología Espacial 🚀</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>🔬 Investigación de Frontera</h3>
+                        <p><strong>Áreas de Investigación Revolucionarias:</strong><br>
+                        • Computación Cuántica - Quantum Computing ⚛️<br>
+                        • Realidad Extendida - XR (VR/AR/MR) 🥽<br>
+                        • Robótica Avanzada - Advanced Robotics 🦾<br>
+                        • Internet of Things - IoT y Smart Cities 🏙️<br>
+                        • Neuroinformática - Brain-Computer Interfaces 🧠<br>
+                        • Biotecnología Computacional 🧬</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>🌍 Impacto Global</h3>
+                        <p><strong>Cambia el Mundo con Tecnología:</strong><br>
+                        • Objetivos de Desarrollo Sostenible ONU 🌍<br>
+                        • Tecnología para el Cambio Climático 🌡️<br>
+                        • Educación Digital Inclusiva 📖<br>
+                        • Telemedicina y Salud Global 🏥<br>
+                        • Agricultura 4.0 y Seguridad Alimentaria 🌾<br>
+                        • Energías Renovables Inteligentes ⚡</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>💰 Salarios de Elite</h3>
+                        <p><strong>Rangos Salariales Guatemala 2025:</strong><br>
+                        • Junior Developer: Q15,000-25,000 💼<br>
+                        • Senior Developer: Q30,000-50,000 💻<br>
+                        • Tech Lead: Q50,000-80,000 👨‍💻<br>
+                        • AI Specialist: Q60,000-100,000+ 🤖<br>
+                        • Startup Founder: Sin límites 🚀<br>
+                        <em>*Salarios internacionales pueden ser 3-5x mayores</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página de Autores -->
+            <div id="autores" class="page">
+                <div class="hero">
+                    <h1 class="glow-text">👥 Nuestro Dream Team</h1>
+                    <p>Los genios creativos detrás de este proyecto futurista</p>
+                </div>
+                
+                <div class="authors-grid">
+                    <div class="author-card reveal">
+                        <div class="author-avatar">👨‍💻</div>
+                        <div class="author-name">Alejandro Bail</div>
+                    </div>
+                    
+                    <div class="author-card reveal">
+                        <div class="author-avatar">👩‍💻</div>
+                        <div class="author-name">Nataly Valdez</div>
+                    </div>
+                    
+                    <div class="author-card reveal">
+                        <div class="author-avatar">👨‍💻</div>
+                        <div class="author-name">Marlon Ordoñez</div>
+                    </div>
+                    
+                    <div class="author-card reveal">
+                        <div class="author-avatar">👨‍💻</div>
+                        <div class="author-name">Jeremy Santos</div>
+                    </div>
+                    
+                    <div class="author-card reveal">
+                        <div class="author-avatar">👨‍💻</div>
+                        <div class="author-name">Kenny Lopez</div>
+                    </div>
+                    
+                    <div class="author-card reveal">
+                        <div class="author-avatar">👨‍💻</div>
+                        <div class="author-name">Pablo Mendez</div>
+                    </div>
+                    
+                    <div class="author-card reveal">
+                        <div class="author-avatar">👩‍💻</div>
+                        <div class="author-name">Joselin Carranza</div>
+                    </div>
+                    
+                    <div class="author-card reveal">
+                        <div class="author-avatar">👩‍💻</div>
+                        <div class="author-name">Genesis Chocojay</div>
+                    </div>
+                    
+                    <div class="author-card reveal">
+                        <div class="author-avatar">👩‍💻</div>
+                        <div class="author-name">Darly Carrillo</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 80px;">
+                    <h2 style="text-align: center; margin: 50px 0; font-family: 'Orbitron', monospace; font-size: 2.5rem; color: var(--accent-pink); text-shadow: 0 0 40px var(--glow-pink);">🌟 La Nueva Generación Tech 🌟</h2>
+                    <div class="cards-grid">
+                        <div class="card reveal">
+                            <h3>🎓 Estudiantes del Futuro</h3>
+                            <p>Somos la generación que construirá el mañana digital. Este proyecto ha sido creado completamente por estudiantes apasionados por la tecnología, cada uno aportando su talento único y visión futurista.</p>
+                        </div>
+                        <div class="card reveal">
+                            <h3>🤝 Colaboración Intergaláctica</h3>
+                            <p>Trabajamos como un equipo de élite, combinando nuestras especialidades en programación, diseño, ciencia de datos, ciberseguridad y desarrollo de videojuegos para crear experiencias extraordinarias.</p>
+                        </div>
+                        <div class="card reveal">
+                            <h3>🚀 Pioneros Tecnológicos</h3>
+                            <p>Representamos el futuro de Guatemala en tecnología. Estamos preparados para liderar la revolución digital, crear startups innovadoras y competir a nivel mundial en el ecosistema tech.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página de Contacto -->
+            <div id="contacto" class="page">
+                <div class="hero">
+                    <h1 class="glow-text">📡 Conecta con el Futuro</h1>
+                    <p>¿Listo para unirte a la revolución tecnológica?</p>
+                </div>
+                
+                <div class="contact-form reveal">
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="nombre">✨ Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Tu nombre del futuro" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">📧 Email Intergaláctico</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="tu@futuro.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">📱 Comunicador Cuántico</label>
+                            <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="Tu número dimensional">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">💭 Mensaje del Futuro</label>
+                            <textarea id="mensaje" name="mensaje" class="form-input" rows="5" placeholder="¿Qué te gustaría saber sobre esta aventura tecnológica?" required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button" style="width: 100%;">
+                            🚀 <span>Transmitir Mensaje</span>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="cards-grid" style="margin-top: 60px;">
+                    <div class="card reveal">
+                        <h3>📧 Centro de Comando</h3>
+                        <p>📩 info@valledelsol.edu.gt<br>🎓 admisiones@valledelsol.edu.gt<br>💻 tech@valledelsol.edu.gt</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>📡 Frecuencias de Comunicación</h3>
+                        <p>☎️ +502 2334-5678<br>📞 +502 5555-TECH<br>💬 WhatsApp: +502 4444-CODE</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>🏢 Base de Operaciones</h3>
+                        <p>🏫 Liceo Valle del Sol<br>📍 Zona 10, Ciudad de Guatemala<br>🚀 Campus Tecnológico del Futuro</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Variables globales
+        let isLoaded = false;
+        let particles = [];
+        
+        // Crear partículas de fondo
+        function createParticles() {
+            const container = document.getElementById('particlesBg');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                container.appendChild(particle);
+                particles.push(particle);
+            }
+        }
+        
+        // Función para mostrar páginas
+        function showPage(pageId, event) {
+            if (event) {
+                event.preventDefault();
+            }
+            
+            // Ocultar todas las páginas
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostrar la página seleccionada
+            setTimeout(() => {
+                document.getElementById(pageId).classList.add('active');
+                
+                // Reiniciar animaciones reveal
+                const elements = document.getElementById(pageId).querySelectorAll('.reveal');
+                elements.forEach((el, index) => {
+                    el.classList.remove('active');
+                    setTimeout(() => {
+                        el.classList.add('active');
+                    }, index * 100);
+                });
+                
+                // Scroll suave al inicio
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 100);
+            
+            // Actualizar navegación activa
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+            
+            // Crear efecto de transición
+            createTransitionEffect();
+        }
+        
+        // Efecto de chispas en el logo
+        function createSparkles() {
+            const colors = ['var(--primary-purple)', 'var(--secondary-cyan)', 'var(--accent-pink)', 'var(--accent-orange)'];
+            
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.style.position = 'fixed';
+                    sparkle.style.width = Math.random() * 6 + 3 + 'px';
+                    sparkle.style.height = sparkle.style.width;
+                    sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    sparkle.style.borderRadius = '50%';
+                    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                    sparkle.style.top = '80px';
+                    sparkle.style.zIndex = '9999';
+                    sparkle.style.pointerEvents = 'none';
+                    sparkle.style.animation = 'sparkleBurst 2s ease-out forwards';
+                    sparkle.style.boxShadow = '0 0 10px currentColor';
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 2000);
+                }, i * 30);
+            }
+        }
+        
+        // CSS para efectos de chispas
+        const sparkleStyle = document.createElement('style');
+        sparkleStyle.textContent = `
+            @keyframes sparkleBurst {
+                0% {
+                    transform: translateY(0) scale(0);
+                    opacity: 1;
+                }
+                50% {
+                    transform: translateY(-150px) scale(1);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translateY(-300px) scale(0);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(sparkleStyle);
+        
+        // Efecto de transición entre páginas
+        function createTransitionEffect() {
+            const colors = ['var(--primary-purple)', 'var(--secondary-cyan)', 'var(--accent-pink)', 'var(--accent-orange)'];
+            
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = '8px';
+                particle.style.height = '8px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.left = '50%';
+                particle.style.top = '50%';
+                particle.style.zIndex = '9999';
+                particle.style.pointerEvents = 'none';
+                particle.style.boxShadow = '0 0 10px currentColor';
+                
+                const angle = (Math.PI * 2 * i) / 12;
+                particle.style.animation = `transitionBurst 1s ease-out forwards`;
+                particle.style.setProperty('--angle', angle + 'rad');
+                
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 1000);
+            }
+        }
+        
+        // CSS para transiciones
+        const transitionStyle = document.createElement('style');
+        transitionStyle.textContent = `
+            @keyframes transitionBurst {
+                0% {
+                    transform: translate(-50%, -50%) scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(-50%, -50%) translate(calc(cos(var(--angle)) * 300px), calc(sin(var(--angle)) * 300px)) scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(transitionStyle);
+        
+        // Manejo del formulario
+        function handleSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Crear notificación de éxito futurista
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(15, 15, 35, 0.95);
+                backdrop-filter: blur(25px);
+                border: 2px solid var(--secondary-cyan);
+                border-radius: 25px;
+                padding: 40px;
+                color: var(--text-light);
+                font-family: 'Orbitron', monospace;
+                text-align: center;
+                z-index: 10000;
+                box-shadow: 0 0 50px var(--glow-cyan);
+                animation: notificationPop 3s ease-out forwards;
+            `;
+            
+            notification.innerHTML = `
+                <div style="font-size: 3rem; margin-bottom: 20px;">🚀</div>
+                <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 15px;">¡Mensaje Transmitido!</div>
+                <div style="font-size: 1rem; color: var(--text-gray);">
+                    Gracias ${data.nombre}<br>
+                    Te contactaremos en ${data.email}
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+            
+            // Crear confeti futurista
+            createFuturisticConfetti();
+            
+            // Reset form
+            event.target.reset();
+        }
+        
+        // Confeti futurista
+        function createFuturisticConfetti() {
+            const colors = ['var(--primary-purple)', 'var(--secondary-cyan)', 'var(--accent-pink)', 'var(--accent-orange)'];
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.cssText = `
+                        position: fixed;
+                        width: 8px;
+                        height: 8px;
+                        background: ${colors[Math.floor(Math.random() * colors.length)]};
+                        border-radius: 50%;
+                        left: ${Math.random() * 100}%;
+                        top: -10px;
+                        z-index: 9999;
+                        pointer-events: none;
+                        box-shadow: 0 0 10px currentColor;
+                        animation: confettiFall 3s ease-out forwards;
+                    `;
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 20);
+            }
+        }
+        
+        // CSS adicionales
+        const additionalStyles = document.createElement('style');
+        additionalStyles.textContent = `
+            @keyframes notificationPop {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+                10% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+                20% { transform: translate(-50%, -50%) scale(1); }
+                90% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            }
+            
+            @keyframes confettiFall {
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(additionalStyles);
+        
+        // Scroll reveal observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        // Inicialización
+        function init() {
+            // Crear partículas
+            createParticles();
+            
+            // Configurar scroll reveals
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Revelar elementos iniciales
+            setTimeout(() => {
+                document.querySelectorAll('#inicio .reveal').forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('active');
+                    }, index * 200);
+                });
+            }, 1000);
+            
+            // Ocultar loading screen
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    isLoaded = true;
+                }, 500);
+            }, 2000);
+        }
+        
+        // Efectos de cursor personalizado
+        document.addEventListener('mousemove', (e) => {
+            if (!document.querySelector('.custom-cursor')) {
+                const cursor = document.createElement('div');
+                cursor.className = 'custom-cursor';
+                cursor.style.cssText = `
+                    position: fixed;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background: radial-gradient(circle, var(--secondary-cyan), var(--primary-purple));
+                    pointer-events: none;
+                    z-index: 9999;
+                    transition: transform 0.1s ease;
+                    mix-blend-mode: difference;
+                    box-shadow: 0 0 20px var(--glow-cyan);
+                `;
+                document.body.appendChild(cursor);
+            }
+            
+            const cursor = document.querySelector('.custom-cursor');
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+        
+        // Efectos de hover en elementos interactivos
+        document.querySelectorAll('.nav-link, .cta-button, .card, .author-card').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                const cursor = document.querySelector('.custom-cursor');
+                if (cursor) {
+                    cursor.style.transform = 'scale(2)';
+                    cursor.style.background = 'radial-gradient(circle, var(--accent-pink), var(--accent-orange))';
+                }
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                const cursor = document.querySelector('.custom-cursor');
+                if (cursor) {
+                    cursor.style.transform = 'scale(1)';
+                    cursor.style.background = 'radial-gradient(circle, var(--secondary-cyan), var(--primary-purple))';
+                }
+            });
+        });
+        
+        // Efectos de click
+        document.addEventListener('click', (e) => {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: fixed;
+                left: ${e.clientX - 25}px;
+                top: ${e.clientY - 25}px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: radial-gradient(circle, var(--secondary-cyan), transparent);
+                pointer-events: none;
+                z-index: 9999;
+                animation: clickRipple 0.8s ease-out forwards;
+            `;
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 800);
+        });
+        
+        // CSS para efectos de click
+        const clickStyle = document.createElement('style');
+        clickStyle.textContent = `
+            @keyframes clickRipple {
+                0% { transform: scale(0); opacity: 1; }
+                100% { transform: scale(4); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(clickStyle);
+        
+        // Auto-creación de partículas flotantes adicionales
+        setInterval(() => {
+            if (isLoaded && Math.random() > 0.8) {
+                createFloatingEffect();
+            }
+        }, 2000);
+        
+        function createFloatingEffect() {
+            const colors = ['var(--primary-purple)', 'var(--secondary-cyan)', 'var(--accent-pink)'];
+            const particle = document.createElement('div');
+            
+            particle.style.cssText = `
+                position: fixed;
+                width: ${Math.random() * 8 + 4}px;
+                height: ${Math.random() * 8 + 4}px;
+                background: ${colors[Math.floor(Math.random() * colors.length)]};
+                border-radius: 50%;
+                left: ${Math.random() * 100}%;
+                top: 100vh;
+                pointer-events: none;
+                z-index: -1;
+                box-shadow: 0 0 10px currentColor;
+                animation: floatUpward 6s ease-out forwards;
+            `;
+            
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 6000);
+        }
+        
+        // CSS para partículas flotantes
+        const floatingStyle = document.createElement('style');
+        floatingStyle.textContent = `
+            @keyframes floatUpward {
+                0% { 
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0;
+                }
+                10% { opacity: 0.8; }
+                90% { opacity: 0.8; }
+                100% { 
+                    transform: translateY(-120vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(floatingStyle);
+        
+        // Efectos de teclado para navegación
+        document.addEventListener('keydown', (e) => {
+            const pages = ['inicio', 'carrera', 'materias', 'oportunidades', 'autores', 'contacto'];
+            const currentPage = document.querySelector('.page.active').id;
+            const currentIndex = pages.indexOf(currentPage);
+            
+            if (e.key === 'ArrowRight' && currentIndex < pages.length - 1) {
+                showPage(pages[currentIndex + 1]);
+                updateActiveNav(pages[currentIndex + 1]);
+            } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                showPage(pages[currentIndex - 1]);
+                updateActiveNav(pages[currentIndex - 1]);
+            }
+        });
+        
+        function updateActiveNav(pageId) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(pageId)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Efectos de parallax en scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            // Efecto parallax en la imagen del colegio
+            const collegeImage = document.querySelector('.college-image');
+            if (collegeImage) {
+                collegeImage.style.transform = `translateY(${rate * 0.3}px)`;
+            }
+            
+            // Efecto en partículas
+            particles.forEach((particle, index) => {
+                const speed = (index % 3 + 1) * 0.5;
+                particle.style.transform = `translateY(${rate * speed}px)`;
+            });
+        });
+        
+        // Efectos de redimensionamiento responsivo
+        window.addEventListener('resize', () => {
+            // Recrear partículas si es necesario
+            if (window.innerWidth < 768) {
+                particles.forEach(particle => {
+                    particle.style.display = Math.random() > 0.5 ? 'none' : 'block';
+                });
+            } else {
+                particles.forEach(particle => {
+                    particle.style.display = 'block';
+                });
+            }
+        });
+        
+        // Efectos de visibilidad de página
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Pausar animaciones cuando la pestaña no está visible
+                document.body.style.animationPlayState = 'paused';
+            } else {
+                // Reanudar animaciones
+                document.body.style.animationPlayState = 'running';
+                // Crear efecto de bienvenida de vuelta
+                if (isLoaded) {
+                    createWelcomeBackEffect();
+                }
+            }
+        });
+        
+        function createWelcomeBackEffect() {
+            const colors = ['var(--primary-purple)', 'var(--secondary-cyan)', 'var(--accent-pink)', 'var(--accent-orange)'];
+            
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const welcomeParticle = document.createElement('div');
+                    welcomeParticle.style.cssText = `
+                        position: fixed;
+                        width: 6px;
+                        height: 6px;
+                        background: ${colors[Math.floor(Math.random() * colors.length)]};
+                        border-radius: 50%;
+                        left: 50%;
+                        top: 50%;
+                        pointer-events: none;
+                        z-index: 9999;
+                        box-shadow: 0 0 15px currentColor;
+                        animation: welcomeExplosion 2s ease-out forwards;
+                    `;
+                    
+                    const angle = (Math.PI * 2 * i) / 10;
+                    welcomeParticle.style.setProperty('--angle', angle + 'rad');
+                    
+                    document.body.appendChild(welcomeParticle);
+                    setTimeout(() => welcomeParticle.remove(), 2000);
+                }, i * 50);
+            }
+        }
+        
+        // CSS para efecto de bienvenida
+        const welcomeStyle = document.createElement('style');
+        welcomeStyle.textContent = `
+            @keyframes welcomeExplosion {
+                0% {
+                    transform: translate(-50%, -50%) scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(-50%, -50%) translate(calc(cos(var(--angle)) * 200px), calc(sin(var(--angle)) * 200px)) scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(welcomeStyle);
+        
+        // Inicialización cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // Mensaje en consola para desarrolladores
+        console.log(`
+        🚀 Valle del Sol 2025 - Bachillerato en Computación Con Orientación Científica
+        ==================================================================================
+        
+        ✨ Diseño futurista activado
+        🎯 Sistema de navegación avanzado
+        🌟 Efectos visuales de próxima generación
+        
+        Creado por los estudiantes del futuro de VDS 💻
+        
+        Usa las flechas ← → para navegar entre páginas
+        Haz click en el logo para efectos especiales ⚡
+        `);
+        
+        // Easter egg - Konami Code
+        let konamiCode = [];
+        const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konami.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.join(',') === konami.join(',')) {
+                activateEasterEgg();
+                konamiCode = [];
+            }
+        });
+        
+        function activateEasterEgg() {
+            // Crear efecto especial masivo
+            const specialEffect = document.createElement('div');
+            specialEffect.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, var(--primary-purple), var(--secondary-cyan), var(--accent-pink), var(--accent-orange));
+                background-size: 400% 400%;
+                z-index: 10000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: 'Orbitron', monospace;
+                font-size: 3rem;
+                color: white;
+                text-shadow: 0 0 30px white;
+                animation: easterEggBackground 3s ease-in-out;
+            `;
+            
+            specialEffect.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🎉🚀✨</div>
+                    <div>¡CÓDIGO KONAMI ACTIVADO!</div>
+                    <div style="font-size: 1.5rem; margin-top: 10px;">Modo Desarrollador Extremo</div>
+                </div>
+            `;
+            
+            document.body.appendChild(specialEffect);
+            
+            // Crear lluvia de partículas épica
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    createEasterEggParticle();
+                }, i * 20);
+            }
+            
+            setTimeout(() => {
+                specialEffect.remove();
+                document.body.style.filter = 'hue-rotate(0deg)';
+            }, 3000);
+            
+            // Cambiar colores temporalmente
+            document.body.style.animation = 'easterEggColors 10s ease-in-out';
+        }
+        
+        function createEasterEggParticle() {
+            const symbols = ['💻', '🚀', '⚡', '🌟', '💎', '🔥', '✨', '🎯'];
+            const particle = document.createElement('div');
+            
+            particle.style.cssText = `
+                position: fixed;
+                font-size: 2rem;
+                left: ${Math.random() * 100}%;
+                top: -50px;
+                pointer-events: none;
+                z-index: 9999;
+                animation: easterEggRain 4s ease-out forwards;
+            `;
+            
+            particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 4000);
+        }
+        
+        // CSS para Easter Egg
+        const easterEggStyle = document.createElement('style');
+        easterEggStyle.textContent = `
+            @keyframes easterEggBackground {
+                0%, 100% { background-position: 0% 50%; opacity: 0; }
+                50% { background-position: 100% 50%; opacity: 1; }
+            }
+            
+            @keyframes easterEggColors {
+                0%, 100% { filter: hue-rotate(0deg); }
+                25% { filter: hue-rotate(90deg); }
+                50% { filter: hue-rotate(180deg); }
+                75% { filter: hue-rotate(270deg); }
+            }
+            
+            @keyframes easterEggRain {
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(easterEggStyle);
+    </script>
+</body>
+</html>
